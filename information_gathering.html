@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert JS File</title>
+    <style>
+        /* Style for the header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            z-index: 1000;
+        }
+
+        /* Style for the header links */
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        /* Style to reduce width */
+        .container {
+            max-width: 1200px; /* You can adjust this value to your preference */
+            margin: 80px auto 20px auto; /* Adjust margin to accommodate the fixed header */
+        /*  padding: 20px;  Add some padding for better readability */
+        }
+        
+        /* Style for the scroll to top button */
+        #scrollToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        /* Style for the file change buttons */
+        .file-change-button {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            cursor: pointer;
+            font-size: 16px; /* Reduced font size for file change buttons */
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Style for the footer */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: #fff;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed header with options -->
+    <header>
+        <a href="index.html">Home</a>
+    </header>
+
+    <!-- Container to hold content -->
+    <div class="container">
+        <!-- Inserting JS file -->
+        <script id="dynamicScript" src="https://gist.github.com/kuppamjohari/79be6d528af2839159afcb6cdf00437c.js"></script>
+    </div>
+
+    <!-- Scroll to top button -->
+    <button id="scrollToTop" title="Go to top">↑</button>
+
+    <!-- Footer -->
+    <footer>
+        Developed by Kuppam Johari
+    </footer>
+
+    <script>
+        var scriptElement = document.getElementById("dynamicScript");
+        var currentIndex = 0;
+        var fileUrls = [
+            "https://gist.github.com/kuppamjohari/79be6d528af2839159afcb6cdf00437c.js",
+            // Add more file URLs here
+            // "https://example.com/anotherfile.js",
+        ];
+
+        function changeScript(indexChange) {
+            currentIndex = (currentIndex + indexChange + fileUrls.length) % fileUrls.length;
+            scriptElement.src = fileUrls[currentIndex];
+        }
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            var scrollToTopButton = document.getElementById("scrollToTop");
+            var fileChangeButtons = document.getElementsByClassName("file-change-button");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopButton.style.display = "block";
+                for (var i = 0; i < fileChangeButtons.length; i++) {
+                    fileChangeButtons[i].style.display = "block";
+                }
+            } else {
+                scrollToTopButton.style.display = "none";
+                for (var i = 0; i < fileChangeButtons.length; i++) {
+                    fileChangeButtons[i].style.display = "none";
+                }
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        document.getElementById("scrollToTop").addEventListener("click", function() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+    </script>
+</body>
+</html>
